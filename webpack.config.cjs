@@ -8,11 +8,11 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "src/index.html",
+            template: "public/index.html",
         }),
     ],
     devServer: {
-        port: 3030, // you can change the port
+        port: 3000, // you can change the port
         hot: true,
     },
     module: {

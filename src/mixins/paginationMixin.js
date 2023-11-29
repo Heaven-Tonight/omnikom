@@ -1,18 +1,20 @@
-var paginationMixin = {
-    paginate: function () {
-        return this.state.universities = this.state.totalItems / this.state.activPage
-    },
-    getActiveCurrentPage() {
-        return typeof this.state.activePage === boolean ?
-            this.state.totalItems =
-                Math.ceil(Number(this.state.activePage
-                        * this.state.itemsPerPage)
-                    + (this.state.universities
-                        - this.state.totalItems
-                        * this.state.itemsPerPage * this.state.activePage)) :
-            this.state.activePage
+const paginationMixin = {
+  
+  paginate() {
+    const { universities, activePage, itemsPerPage } = this.state;
+    const startIndex = (activePage - 1) * itemsPerPage;
+    const endIndex = activePage * itemsPerPage;
+    const paginatedUniversities = universities.slice(startIndex, endIndex);
+    this.setState({ universities: paginatedUniversities });
+  },
+  
+  getActiveCurrentPage() {
+    const { activePage, itemsPerPage, universities, totalItems } = this.state;
+    
+    return typeof activePage === 'boolean'
+      ? Math.ceil(Number(activePage * itemsPerPage + (universities - totalItems * itemsPerPage * activePage)))
+      : activePage;
+  },
+};
 
-    }
-}
-
-export {paginationMixin}
+export default paginationMixin;
